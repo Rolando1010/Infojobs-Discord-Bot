@@ -1,5 +1,5 @@
 from .db import Database, get_entity_offers_key, get_total_pages_key, get_category_skills_key
-from .offers import get_offers
+from .offers import get_offers, get_offer
 from .requests import authenticated_get_request
 from .constants import OFFERS_URL
 
@@ -48,19 +48,16 @@ def extract_offers_data(begin_page: int, end_page: int, clear: bool = False):
         countries: dict[str, list] = {}
         skills: dict[str, list] = {}
         for offer in offers:
-            offer_data = authenticated_get_request(f"{OFFERS_URL}/{offer.id}")
-            category = offer_data["category"]["value"]
-            country = offer_data["country"]["value"]
-            offer_skills: list[str] = list(map(lambda s: s["skill"], offer_data.get("skillsList", [])))
+            offer_detail = get_offer(offer.id)
             serialized_offer = offer.serialize()
-            if category in categories: categories[category].append(serialized_offer)
-            else: categories[category] = [serialized_offer]
-            if country in countries: countries[country].append(serialized_offer)
-            else: countries[country] = [serialized_offer]
-            for skill in offer_skills:
+            if offer_detail.category in categories: categories[offer_detail.category].append(serialized_offer)
+            else: categories[offer_detail.category] = [serialized_offer]
+            if offer_detail.country in countries: countries[offer_detail.country].append(serialized_offer)
+            else: countries[offer_detail.country] = [serialized_offer]
+            for skill in offer_detail.skills:
                 if skill in skills: skills[skill].append(serialized_offer)
                 else: skills[skill] = [serialized_offer]
-            add_category_skills(category, offer_skills)
+            add_category_skills(offer_detail.category, offer_detail.skills)
             print("offer:", offer.title)
         save_entity(categories, "category")
         save_entity(countries, "country")

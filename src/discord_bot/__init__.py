@@ -18,10 +18,4 @@ async def on_ready():
     await bot.tree.sync()
     print("synchronized in ready")
 
-@bot.command()
-async def init(ctx):
-    print("synchronizing in init")
-    await bot.tree.sync()
-    await ctx.reply("done")
-
 bot.run(DISCORD_BOT_TOKEN)

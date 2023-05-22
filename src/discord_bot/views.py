@@ -35,8 +35,9 @@ def get_offers_embed(offers: list[Offer], total_pages: int, page: int, descripti
         offers_embed.add_field(name="", value=f"""
             ***[{offer.title}]({offer.link})***
             [{offer.author.name}]({offer.author.link})
+            ***id***: {offer.id}
             {offer.applications} aplicaciones
-            {salary_message}
+            {offer.get_salary_message()}
         """, inline=False)
         offers_embed.add_field(name="", value="-"*70, inline=False)
     return offers_embed

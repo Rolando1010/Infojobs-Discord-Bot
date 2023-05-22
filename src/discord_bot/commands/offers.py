@@ -1,5 +1,5 @@
-from discord import Interaction, app_commands
-from jobs.offers import get_offers, search_offers
+from discord import Interaction, app_commands, Embed, Color
+from jobs.offers import get_offers, search_offers, get_offer
 from jobs.categories import get_categories, get_offers_category
 from jobs.skills import get_skills, get_offers_skill
 from jobs.countries import get_countries, get_offers_country
@@ -62,6 +62,28 @@ class OfferCommandsGroup(app_commands.Group):
             embed=get_search_offers_embed(1, busqueda),
             view=Pagination(get_search_offers_embed, (busqueda,))
         )
+    
+    @app_commands.command(name="id", description="Busca una oferta de trabajo por su id")
+    @app_commands.describe(id="Ingresa el id de la oferta que quieres buscar")
+    async def by_id(self, interaction: Interaction, id: str):
+        offer = get_offer(id)
+        offer_embed = Embed(
+            title=offer.title,
+            url=offer.link,
+            description="",
+            color=Color.dark_teal(),
+        )
+        offer_embed.set_thumbnail(url=offer.author.logo)
+        offer_embed.add_field(name="", value=f"[{offer.author.name}]({offer.author.link})", inline=False)
+        offer_embed.add_field(name="", value=offer.country)
+        offer_embed.add_field(name="", value=offer.category)
+        offer_embed.add_field(name="", value="", inline=False)
+        offer_embed.add_field(name="", value=offer.get_salary_message())
+        offer_embed.add_field(name="", value=f"{offer.applications} aplicaciones")
+        offer_embed.add_field(name="", value="", inline=False)
+        description = offer.description[:200] + "..." if len(offer.description) > 100 else offer.description
+        offer_embed.add_field(name="", value=description, inline=False)
+        await interaction.response.send_message(embed=offer_embed)
 
 offer_commands_group = OfferCommandsGroup(name="ofertas", description="Muestra las ofertas de trabajo disponibles")
 bot.tree.add_command(offer_commands_group)
