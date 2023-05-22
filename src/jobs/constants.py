@@ -1,0 +1,1 @@
+OFFERS_URL = "https://api.infojobs.net/api/4/offer"
