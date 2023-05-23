@@ -12,9 +12,7 @@ https://discord.com/oauth2/authorize?client_id=1108128871112515695&permissions=1
 
 ## Ideas
 * [Leer el github y recomendar en base a sus conocimientos](https://docs.github.com/es/rest/repos/repos?apiVersion=2022-11-28#list-repository-languages)
-* Por keyword y por id
 * Estadísticas
 
 ## ToDo
 * Actualizar embed de comandos
-* Mover credenciales a variables de entorno

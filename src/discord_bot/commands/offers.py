@@ -1,10 +1,12 @@
 from discord import Interaction, app_commands, Embed, Color
+from discord_bot.bot import bot
+from discord_bot.views import get_list_embed, get_offers_embed, get_offer_embed, Pagination, autocompletion
+from github.user import GithubUser
 from jobs.offers import get_offers, search_offers, get_offer
 from jobs.categories import get_categories, get_offers_category
 from jobs.skills import get_skills, get_offers_skill
 from jobs.countries import get_countries, get_offers_country
-from discord_bot.bot import bot
-from discord_bot.views import get_offers_embed, Pagination, autocompletion
+from jobs.recommendations import get_recommendation_offers
 
 def get_all_offers_embed(page: int):
     offers, total_pages = get_offers(page)
@@ -67,23 +69,22 @@ class OfferCommandsGroup(app_commands.Group):
     @app_commands.describe(id="Ingresa el id de la oferta que quieres buscar")
     async def by_id(self, interaction: Interaction, id: str):
         offer = get_offer(id)
-        offer_embed = Embed(
-            title=offer.title,
-            url=offer.link,
-            description="",
-            color=Color.dark_teal(),
-        )
-        offer_embed.set_thumbnail(url=offer.author.logo)
-        offer_embed.add_field(name="", value=f"[{offer.author.name}]({offer.author.link})", inline=False)
-        offer_embed.add_field(name="", value=offer.country)
-        offer_embed.add_field(name="", value=offer.category)
-        offer_embed.add_field(name="", value="", inline=False)
-        offer_embed.add_field(name="", value=offer.get_salary_message())
-        offer_embed.add_field(name="", value=f"{offer.applications} aplicaciones")
-        offer_embed.add_field(name="", value="", inline=False)
-        description = offer.description[:200] + "..." if len(offer.description) > 100 else offer.description
-        offer_embed.add_field(name="", value=description, inline=False)
+        offer_embed = get_offer_embed(offer)
         await interaction.response.send_message(embed=offer_embed)
+    
+    @app_commands.command(name="recomendaciones", description="Obtén recomendaciones de ofertas según tu perfil en github")
+    @app_commands.describe(github_username="Pon tu nombre de usuario de github")
+    async def recommendations(self, interaction: Interaction, github_username: str):
+        github_user = GithubUser(github_username)
+        # recommendation_offers = get_recommendation_offers(github_user)
+        languages_embed = get_list_embed(
+            "Lenguajes",
+            f"Lenguajes más usados por {github_username}",
+            Color.dark_purple(),
+            github_user.languages,
+            thumbnail=github_user.image
+        )
+        await interaction.response.send_message(embed=languages_embed)
 
 offer_commands_group = OfferCommandsGroup(name="ofertas", description="Muestra las ofertas de trabajo disponibles")
 bot.tree.add_command(offer_commands_group)
