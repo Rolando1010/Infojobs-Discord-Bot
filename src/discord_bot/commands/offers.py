@@ -1,12 +1,11 @@
-from discord import Interaction, app_commands, Embed, Color
+from discord import Interaction, app_commands, Color
 from discord_bot.bot import bot
-from discord_bot.views import get_list_embed, get_offers_embed, get_offer_embed, Pagination, autocompletion
+from discord_bot.views import get_list_embed, get_offers_embed, get_offer_embed, Pagination, LanguagesRecommendationOffers, autocompletion
 from github.user import GithubUser
 from jobs.offers import get_offers, search_offers, get_offer
 from jobs.categories import get_categories, get_offers_category
 from jobs.skills import get_skills, get_offers_skill
 from jobs.countries import get_countries, get_offers_country
-from jobs.recommendations import get_recommendation_offers
 
 def get_all_offers_embed(page: int):
     offers, total_pages = get_offers(page)
@@ -76,7 +75,6 @@ class OfferCommandsGroup(app_commands.Group):
     @app_commands.describe(github_username="Pon tu nombre de usuario de github")
     async def recommendations(self, interaction: Interaction, github_username: str):
         github_user = GithubUser(github_username)
-        # recommendation_offers = get_recommendation_offers(github_user)
         languages_embed = get_list_embed(
             "Lenguajes",
             f"Lenguajes más usados por {github_username}",
@@ -84,7 +82,7 @@ class OfferCommandsGroup(app_commands.Group):
             github_user.languages,
             thumbnail=github_user.image
         )
-        await interaction.response.send_message(embed=languages_embed)
+        await interaction.response.send_message(embed=languages_embed, view=LanguagesRecommendationOffers(github_user.languages))
 
 offer_commands_group = OfferCommandsGroup(name="ofertas", description="Muestra las ofertas de trabajo disponibles")
 bot.tree.add_command(offer_commands_group)

@@ -1,7 +1,7 @@
 from discord import Embed, Color, Colour, ButtonStyle, Interaction, app_commands
 from discord.ui import View, button, Button
 from typing import Callable, List
-from jobs.offers import Offer
+from jobs.offers import Offer, search_offers
 
 def get_commands_embed():
     commands_embed = Embed(
@@ -85,7 +85,26 @@ class Pagination(View):
     async def next_page(self, interaction: Interaction, button: Button):
         self.page += 1
         await interaction.response.edit_message(embed=self.get_embed(self.page, *self.args), view=self)
+
+class LanguagesRecommendationOffers(View):
+    def __init__(self, languages: str):
+        super().__init__()
+        for language in languages:
+            button = Button(label=f"Recomendaciones de {language}", style=ButtonStyle.green)
+            button.callback = self.recommend_languages_offers(language)
+            self.add_item(button)
     
+    def recommend_languages_offers(self, language: str):
+        async def action(interaction: Interaction):
+            recommendation_offers = search_offers(language, 1)
+            await interaction.response.send_message(embed=get_offers_embed(
+                recommendation_offers[:5],
+                len(recommendation_offers) and 1,
+                len(recommendation_offers) and 1,
+                f"Recomendaciones para {language}" if len(recommendation_offers) else f"No hay recomendaciones para {language}"
+            ), view=self)
+        return action
+
 def autocompletion(get_options: Callable[[], list[str]]):
     async def get_similar_options(interaction: Interaction, current: str) -> List[app_commands.Choice[str]]:
         similar = []
