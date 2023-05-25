@@ -1,3 +1,4 @@
 .env
 __pycache__/
 src/jobs_statistics/charts/
+static
