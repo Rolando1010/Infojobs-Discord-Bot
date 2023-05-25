@@ -10,9 +10,9 @@ def get_categories() -> list[str]:
 def get_offers_category(category: str, page: int) -> tuple[list[Offer], int]:
     database = Database()
     offers_category = database.get_list(get_entity_offers_key(category, page, "category"))
-    total_page = database.get_int(get_total_pages_key(category, "category"))
+    total_pages = database.get_int(get_total_pages_key(category, "category"))
     database.close()
-    return list(map(Offer, offers_category)), total_page
+    return list(map(Offer, offers_category)), total_pages
 
 def get_category_skills(category: str) -> list[str]:
     database = Database()

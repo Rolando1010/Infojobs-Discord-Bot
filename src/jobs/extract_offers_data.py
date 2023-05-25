@@ -1,7 +1,5 @@
 from .db import Database, get_entity_offers_key, get_total_pages_key, get_category_skills_key
 from .offers import get_offers, get_offer
-from .requests import authenticated_get_request
-from .constants import OFFERS_URL
 
 MAX_OFFERS_PAGE_SIZE = 10
 

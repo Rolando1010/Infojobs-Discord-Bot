@@ -2,7 +2,7 @@ from discord import Embed, Color, Colour, ButtonStyle, Interaction, app_commands
 from discord.ui import View, button, Button
 from typing import Callable, List
 from jobs.offers import Offer, search_offers
-
+import numpy
 def get_commands_embed():
     commands_embed = Embed(
         title="Lista de comandos",
@@ -98,7 +98,7 @@ class LanguagesRecommendationOffers(View):
         async def action(interaction: Interaction):
             recommendation_offers = search_offers(language, 1)
             await interaction.response.send_message(embed=get_offers_embed(
-                recommendation_offers[:5],
+                recommendation_offers,
                 len(recommendation_offers) and 1,
                 len(recommendation_offers) and 1,
                 f"Recomendaciones para {language}" if len(recommendation_offers) else f"No hay recomendaciones para {language}"

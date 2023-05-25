@@ -1,5 +1,6 @@
-from .requests import authenticated_get_request, browserify_request
-from .constants import OFFERS_URL
+from api_requests.infojobs import authenticated_infojobs_request
+from api_requests.browser import browserify_request
+from api_requests.urls import OFFERS_URL, SEARCH_OFFERS_URL
 
 class OfferAuthor():
     def __init__(self, name: str, link: str, logo: str) -> None:
@@ -50,18 +51,18 @@ class Offer():
         return f"Salario de {self.salary_min} a {self.salary_max}" if self.salary_min or self.salary_max else "Salario no disponible"
 
 def get_offers(page: int = 1) -> tuple[list[Offer], int]:
-    response = authenticated_get_request(OFFERS_URL + "?page="+str(page))
+    response = authenticated_infojobs_request(OFFERS_URL + "?page="+str(page))
     total_pages = response.get("totalPages", 0)
     offers = list(map(Offer, response.get("items", [])))
     return offers, total_pages
 
 def search_offers(search: str, page: int) -> list[Offer]:
-    response = browserify_request(f"https://www.infojobs.net/webapp/offers/search?keyword={search}&page={page}&onlyForeignCountry=false")
+    response = browserify_request(f"{SEARCH_OFFERS_URL}?keyword={search}&page={page}")
     offers = list(map(Offer, response.get("offers", [])))
     return offers
 
 def get_offer(id: str):
-    response = authenticated_get_request(f"{OFFERS_URL}/{id}")
+    response = authenticated_infojobs_request(f"{OFFERS_URL}/{id}")
     if "error" in response:
         raise Exception("offer not found")
     return Offer(response)

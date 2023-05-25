@@ -1,10 +1,4 @@
-import requests
-from config import GITHUB_TOKEN
-
-def authenticated_get_request(url) -> dict:
-    return requests.get(url, headers={
-        "Authorization": f"Bearer {GITHUB_TOKEN}"
-    }).json()
+from api_requests.github import authenticated_github_request
 
 class GithubUser():
     def __init__(self, username: str) -> None:
@@ -13,7 +7,7 @@ class GithubUser():
         self.image = self.get_image()
 
     def get_languages(self) -> list[str]:
-        repositories: list[dict] = authenticated_get_request(f"https://api.github.com/users/{self.username}/repos?sort=pushed")
+        repositories: list[dict] = authenticated_github_request(f"https://api.github.com/users/{self.username}/repos?sort=pushed")
         languages: dict[str, int] = {}
         for repository in repositories:
             language = repository["language"]
@@ -24,4 +18,4 @@ class GithubUser():
         return list(map(lambda l: l[0], sorted_languages_by_appearance))
 
     def get_image(self) -> str:
-        return authenticated_get_request(f"https://api.github.com/users/{self.username}")["avatar_url"]
+        return authenticated_github_request(f"https://api.github.com/users/{self.username}")["avatar_url"]
