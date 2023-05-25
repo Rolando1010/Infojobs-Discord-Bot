@@ -11,7 +11,6 @@ Authorization: Basic MmRjNDk4ZmQzYzY4NDE3OTg3NTMxMjBjNmZhMTA4NDk6REd2elJwbi85T1h
 https://discord.com/oauth2/authorize?client_id=1108128871112515695&permissions=139586824256&scope=bot
 
 ## Ideas
-* [Leer el github y recomendar en base a sus conocimientos](https://docs.github.com/es/rest/repos/repos?apiVersion=2022-11-28#list-repository-languages)
 * Estadísticas
 
 ## ToDo
