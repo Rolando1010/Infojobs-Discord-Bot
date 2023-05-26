@@ -1,1 +1,1 @@
-import jobs_statistics
+import jobs.statistics

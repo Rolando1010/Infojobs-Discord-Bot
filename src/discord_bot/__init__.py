@@ -7,6 +7,7 @@ import discord_bot.commands.commands
 import discord_bot.commands.categories
 import discord_bot.commands.skills
 import discord_bot.commands.countries
+import discord_bot.commands.statistics
 
 @bot.event
 async def on_member_join(member: Member):

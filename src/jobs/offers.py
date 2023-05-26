@@ -1,6 +1,4 @@
-from api_requests.infojobs import authenticated_infojobs_request
-from api_requests.browser import browserify_request
-from api_requests.urls import OFFERS_URL, SEARCH_OFFERS_URL
+from .requests import authenticated_infojobs_request, browserify_request, OFFERS_URL, SEARCH_OFFERS_URL
 
 class OfferAuthor():
     def __init__(self, name: str, link: str, logo: str) -> None:

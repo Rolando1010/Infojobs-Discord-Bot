@@ -47,6 +47,7 @@ def extract_offers_data(begin_page: int, end_page: int, clear: bool = False):
         skills: dict[str, list] = {}
         for offer in offers:
             offer_detail = get_offer(offer.id)
+            print(offer_detail.category)
             serialized_offer = offer.serialize()
             if offer_detail.category in categories: categories[offer_detail.category].append(serialized_offer)
             else: categories[offer_detail.category] = [serialized_offer]

@@ -1,4 +1,10 @@
-from api_requests.github import authenticated_github_request
+import requests
+from config import GITHUB_TOKEN
+
+def authenticated_github_request(url) -> dict:
+    return requests.get(url, headers={
+        "Authorization": f"Bearer {GITHUB_TOKEN}"
+    }).json()
 
 class GithubUser():
     def __init__(self, username: str) -> None:

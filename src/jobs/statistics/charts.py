@@ -1,7 +1,6 @@
-import os
 from matplotlib import pyplot
 from matplotlib.patheffects import withStroke
-from pathlib import Path
+from config import STATISTICS_CHARTS_DIRECTORY
 
 def generate_chart(title: str, description: str, image_name: str, x_items: list[int], y_items: list[str]):
     WHITE = "white"
@@ -40,5 +39,4 @@ def generate_chart(title: str, description: str, image_name: str, x_items: list[
     figure.text(0.02, 0.925, title, fontsize=18, fontweight="bold")
     figure.text(0.02, 0.875, description, fontsize=14)
     figure.set_facecolor(WHITE)
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    figure.savefig(os.path.join(BASE_DIR, f"jobs_statistics/charts/{image_name}.png"))
+    figure.savefig(f"{STATISTICS_CHARTS_DIRECTORY}/{image_name}.png")
