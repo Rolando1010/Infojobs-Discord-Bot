@@ -1,5 +1,5 @@
 from discord import Member
-from discord_bot.views import get_commands_embed
+from discord_bot.embeds.commands import get_commands_embed
 from discord_bot.bot import bot
 from config import DISCORD_BOT_TOKEN
 import discord_bot.commands.offers

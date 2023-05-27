@@ -1,6 +1,8 @@
 from discord import Interaction, app_commands, Color
 from discord_bot.bot import bot
-from discord_bot.views import get_list_embed, get_offers_embed, get_offer_embed, Pagination, LanguagesRecommendationOffers, autocompletion
+from discord_bot.views import Pagination, LanguagesRecommendationOffers, autocompletion
+from discord_bot.embeds.offers import get_offers_embed, get_offer_embed
+from discord_bot.embeds.list import get_list_embed
 from github.user import GithubUser
 from jobs.offers import get_offers, search_offers, get_offer
 from jobs.categories import get_categories, get_offers_category

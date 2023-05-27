@@ -1,6 +1,6 @@
-from discord import Interaction, Embed, Color
+from discord import Interaction, Color
 from discord_bot.bot import bot
-from discord_bot.views import get_list_embed
+from discord_bot.embeds.list import get_list_embed
 from jobs.countries import get_countries
 
 @bot.tree.command(name="paises", description="Consulta el listado de países que ofertan trabajos")

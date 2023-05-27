@@ -1,6 +1,7 @@
 from discord import Interaction, Color, app_commands
 from discord_bot.bot import bot
-from discord_bot.views import get_list_embed, autocompletion
+from discord_bot.views import autocompletion
+from discord_bot.embeds.list import get_list_embed
 from jobs.skills import get_skills
 from jobs.categories import get_categories, get_category_skills
 

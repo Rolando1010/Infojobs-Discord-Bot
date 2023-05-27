@@ -1,5 +1,5 @@
 from discord import Interaction, Color
-from discord_bot.views import get_list_embed
+from discord_bot.embeds.list import get_list_embed
 from discord_bot.bot import bot
 from jobs.categories import get_categories
 
