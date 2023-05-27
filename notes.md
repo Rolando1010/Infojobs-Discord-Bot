@@ -11,7 +11,15 @@ Authorization: Basic MmRjNDk4ZmQzYzY4NDE3OTg3NTMxMjBjNmZhMTA4NDk6REd2elJwbi85T1h
 https://discord.com/oauth2/authorize?client_id=1108128871112515695&permissions=139586824256&scope=bot
 
 ## Ideas
-* Estadísticas
 
 ## ToDo
-* Actualizar embed de comandos
+* Desplegar
+* Volver a crear el bot o cambiar los datos que tenga
+* Añadirlo a un servidor específico
+* Añadir reglas al servidor y explicaciones
+* Probar con una nueva cuenta
+* Añadirlo al canal de la hackaton
+* Llenar la base de datos con las ofertas de todas las páginas
+* Probar comandos
+* Probar que salga comandos al entrar nuevo miembro
+* Asociar embed de comandos a help
