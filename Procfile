@@ -1,0 +1,1 @@
+web: python src/run_discord_bot.py
