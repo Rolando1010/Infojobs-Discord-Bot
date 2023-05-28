@@ -5,4 +5,6 @@ def get_list_embed(title: str, description: str, color: int | Colour, items: lis
     if thumbnail: list_embed.set_thumbnail(url=thumbnail)
     for item in items:
         list_embed.add_field(name="", value=f"* {item}", inline=False)
+    if len(items) == 0:
+        list_embed.add_field(name="", value="No hay elementos disponibles para listar", inline=False)
     return list_embed

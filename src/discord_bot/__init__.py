@@ -17,6 +17,6 @@ async def on_member_join(member: Member):
 async def on_ready():
     print("discord bot running")
     await bot.tree.sync()
-    print("synchronized in ready")
+    print("synchronized")
 
 bot.run(DISCORD_BOT_TOKEN)

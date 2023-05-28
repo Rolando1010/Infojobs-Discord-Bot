@@ -1,17 +1,18 @@
 from discord import Embed, Color
 from jobs.offers import Offer
 
-def get_offers_embed(offers: list[Offer], total_pages: int, page: int, description: str):
+def get_offers_embed(original_offers: list[Offer], total_pages: int, page: int, description: str):
+    offers = original_offers[:10]
     offers_embed = Embed(
         title=f"Ofertas de trabajo ({page}/{total_pages})",
-        description=description,
+        description=f"{description} ({len(offers)})",
         color=Color.dark_blue()
     )
     for offer in offers:
         offers_embed.add_field(name="", value=f"""
             ***[{offer.title}]({offer.link})***
             [{offer.author.name}]({offer.author.link})
-            ***id***: {offer.id}
+            ***ID***: {offer.id}
             {offer.applications} aplicaciones
             {offer.get_salary_message()}
         """, inline=False)
