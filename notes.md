@@ -9,6 +9,3 @@ https://discord.gg/mNej9jDP
 ## Ideas
 
 ## ToDo
-* Llenar la base de datos con las ofertas de todas las páginas
-* Regenerar las imágenes
-* Ejemplos de los comandos
