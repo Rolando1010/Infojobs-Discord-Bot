@@ -12,7 +12,10 @@ COMMANDS = [
         ("Obtén recomendaciones de ofertas de trabajo según tu perfil en github", "/ofertas recomendaciones <github-username>")
     ]),
     ("Categorías", "Obtén las categorías de ofertas de trabajo", "/categorias"),
-    ("Habilidades", "Obtén las habilidades de ofertas de trabajo", "/habilidades"),
+    ("Habilidades", [
+        ("Obtén todas las habilidades de ofertas de trabajo", "/habilidades todas"),
+        ("Obtén todas las habilidades asociadas a una cierta categoría", "/habilidades categorias <categoria>")
+    ]),
     ("Países", "Obtén los países de ofertas de trabajo", "/paises"),
     ("Estadísticas", [
         ("Lenguajes de programación más usados", "/estadisticas lenguajes"),
